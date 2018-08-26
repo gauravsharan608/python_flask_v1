@@ -23,7 +23,7 @@ dbAccess = db_access.DBAccess()
 
 @app.after_request
 def apply_caching(response):
-    logging.info("Gaurav")
+    #logging.info("Gaurav")
     logging.debug(str(response))
     response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
     #response.headers["Pragma"] = "no-cache"
@@ -355,8 +355,11 @@ def logout():
 
 @app.route('/header')
 def serve_header():
-    #session.clear()
     return render_template("header_homepage.html")
+
+@app.route('/header.login')
+def serve_login_header():
+    return render_template("header_login.html")
    
 
 
@@ -386,7 +389,8 @@ def login():
                 return "Invalid credentials"
     else:
         # reset the session data
-        #session.clear()
+        if(session):
+            session.clear()        
         return render_template("login.html")
 
 if __name__ == '__main__':

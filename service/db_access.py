@@ -19,7 +19,7 @@ class DBAccess():
             cursor = conn.cursor()
             sql = "select username,password from users where username='"+username+"' and password ='"+password+"'";
             cursor.execute(sql)
-            #rows = cursor.fetchall()
+            rows = cursor.fetchall()
             print(str(rows))
             recs_num = cursor.rowcount
             print('Total Row(s):', recs_num)
@@ -80,6 +80,8 @@ class DBAccess():
             for (user_i) in rows:
                 #print(user_i)
                 user_id = user_i[0];
+            print("user_id for username, "+username+" is "+user_id)
+            logging.debug("user_id for username, "+username+" is "+user_id)
         except Exception as e:
           logging.error("Database error while getting user id by username, "+str(e))
           print("Database Error ->",e)
